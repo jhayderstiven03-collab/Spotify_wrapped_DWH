@@ -6,7 +6,6 @@ version: 1.0
 description: Configuración central de variables de entorno usando pydantic-settings.
 """
 
-
 from pydantic_settings import BaseSettings
 
 
