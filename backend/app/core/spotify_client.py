@@ -1,6 +1,6 @@
 """
 filename: spotify_client.py
-author: Tu Nombre
+author: Jhayder FLorez
 date: 2025-05-15
 version: 1.0
 description: Cliente HTTP reutilizable para consumir la Spotify Web API con autenticación Bearer.
