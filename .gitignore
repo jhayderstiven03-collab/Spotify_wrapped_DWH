@@ -4,3 +4,4 @@ __pycache__/
 *.log
 
 test_client.py
+test_history.py
