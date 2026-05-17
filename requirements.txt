@@ -12,3 +12,4 @@ passlib[bcrypt]
 requests
 pytest
 pytest-asyncio
+tzdata
