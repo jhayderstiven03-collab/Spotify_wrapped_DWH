@@ -10,6 +10,7 @@ description: ETL pipeline service. Orchestrates the three phases (Extract, Trans
 import time
 from datetime import datetime, timezone
 
+from zoneinfo import ZoneInfo
 from backend.app.core.database import get_connection
 from backend.app.core.spotify_client import (
     get_user_profile,
@@ -150,6 +151,7 @@ def transform_history(raw_list: list[dict]) -> list[dict]:
     """
     Normalizes a list of raw Spotify PlayHistoryObjects into
     dwh.fact_listening_history-ready dicts.
+    Timestamps are converted from UTC to Colombia timezone (UTC-5).
 
     Args:
         raw_list (list[dict]): Raw list of PlayHistoryObject from Spotify.
@@ -157,10 +159,12 @@ def transform_history(raw_list: list[dict]) -> list[dict]:
     Returns:
         list[dict]: Normalized history data matching dwh.fact_listening_history columns.
     """
+    COLOMBIA_TZ = ZoneInfo("America/Bogota")
     result = []
     for item in raw_list:
         played_at_str = item["played_at"]
-        played_at = datetime.fromisoformat(played_at_str.replace("Z", "+00:00"))
+        played_at_utc = datetime.fromisoformat(played_at_str.replace("Z", "+00:00"))
+        played_at = played_at_utc.astimezone(COLOMBIA_TZ)
         track = item["track"]
 
         result.append({
