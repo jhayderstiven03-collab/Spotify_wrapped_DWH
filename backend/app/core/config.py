@@ -7,9 +7,16 @@ description: Configuración central de variables de entorno usando pydantic-sett
 """
 
 from pydantic_settings import BaseSettings
+from pydantic import ConfigDict
 
 
 class Settings(BaseSettings):
+
+    model_config = ConfigDict(
+        env_file=".env",
+        env_file_encoding="utf-8"
+    )
+
     # Spotify
     SPOTIFY_CLIENT_ID: str
     SPOTIFY_CLIENT_SECRET: str
@@ -23,10 +30,6 @@ class Settings(BaseSettings):
     APP_VERSION: str = "1.0.0"
     SECRET_KEY: str
     FRONTEND_URL: str
-
-    class Config:
-        env_file = ".env"
-        env_file_encoding = "utf-8"
 
 
 settings = Settings()
