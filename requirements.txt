@@ -10,3 +10,5 @@ pydantic-settings
 python-jose[cryptography]
 passlib[bcrypt]
 requests
+pytest
+pytest-asyncio
