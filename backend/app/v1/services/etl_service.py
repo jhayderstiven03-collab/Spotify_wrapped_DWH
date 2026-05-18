@@ -159,7 +159,14 @@ def transform_history(raw_list: list[dict]) -> list[dict]:
     Returns:
         list[dict]: Normalized history data matching dwh.fact_listening_history columns.
     """
-    COLOMBIA_TZ = ZoneInfo("America/Bogota")
+    try:
+        COLOMBIA_TZ = ZoneInfo("America/Bogota")
+    except Exception:
+        # On some environments (notably Windows without tzdata) the IANA
+        # timezone database is missing. Fall back to a fixed UTC-5 offset
+        # which is correct for Colombia (no DST).
+        from datetime import timedelta
+        COLOMBIA_TZ = timezone(timedelta(hours=-5))
     result = []
     for item in raw_list:
         played_at_str = item["played_at"]
