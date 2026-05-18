@@ -2,6 +2,7 @@ import { NavLink } from "react-router-dom";
 import { logout } from "../lib/auth";
 import { useEffect, useState } from "react";
 import { apiFetch } from "../lib/api";
+import logo from "../assets/SonicAnalytics Logo.png";
 
 interface UserProfile {
   display_name: string;
@@ -25,9 +26,14 @@ export default function Navbar() {
   return (
     <aside className="fixed top-0 left-0 h-screen w-40 bg-zinc-950 border-r border-zinc-800 flex flex-col px-4 py-6">
       {/* Brand */}
-      <div className="mb-8">
-        <p className="text-white font-bold text-sm">SoundPulse</p>
-        <p className="text-zinc-500 text-xs">Spotify Analytics</p>
+      <div className="mb-6 flex items-center gap-3">
+        <div className="w-11 h-11 rounded-full border border-green-500/30 bg-black flex items-center justify-center overflow-hidden">
+          <img src={logo} alt="SoundPulse logo" className="w-full h-full object-cover" />
+        </div>
+        <div>
+          <p className="text-white font-bold text-sm">SoundPulse</p>
+          <p className="text-zinc-500 text-xs">Spotify Analytics</p>
+        </div>
       </div>
 
       {/* Links */}
