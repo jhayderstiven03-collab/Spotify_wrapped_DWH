@@ -26,3 +26,18 @@ def recently_played(spotify_id: str = Depends(get_current_user)):
         list[HistoryResponse]: List of recently played tracks.
     """
     return get_recently_played(spotify_id)
+
+from backend.app.v1.services.history_service import get_recently_played, get_peak_hour
+
+@router.get("/peak-hour")
+def peak_hour(spotify_id: str = Depends(get_current_user)):
+    """
+    Returns the peak listening hour for the authenticated user.
+
+    Args:
+        spotify_id (str): Extracted from the JWT by get_current_user.
+
+    Returns:
+        dict: {"hour": int, "count": int}
+    """
+    return get_peak_hour(spotify_id)
